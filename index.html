@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comunicación Asertiva – Tecnología en Software</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --rose: #e91e8c;
+      --rose-light: #f8a5d0;
+      --rose-pale: #fce4f3;
+      --rose-dark: #9c1260;
+      --pink-soft: #fff0f9;
+      --cream: #fff8fd;
+      --text-dark: #2a0a1e;
+      --text-mid: #6b2456;
+      --white: #ffffff;
+      --shadow: 0 8px 32px rgba(233,30,140,0.13);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    header {
+      background: linear-gradient(135deg, #9c1260 0%, #e91e8c 45%, #f48fb1 100%);
+      color: var(--white);
+      padding: 70px 30px 90px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      animation: bgDrift 20s linear infinite;
+    }
+
+    @keyframes bgDrift { from{background-position:0 0} to{background-position:60px 60px} }
+
+    .hero-icon {
+      font-size: 64px;
+      display: block;
+      margin-bottom: 18px;
+      animation: floatIcon 3s ease-in-out infinite;
+    }
+
+    @keyframes floatIcon {
+      0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)}
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.2;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    header p.subtitle {
+      margin-top: 14px;
+      font-size: 1.05rem;
+      font-weight: 300;
+      opacity: 0.9;
+      position: relative;
+    }
+
+    /* ── NAV PILLS ── */
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 28px 20px;
+      background: var(--white);
+      box-shadow: 0 4px 20px rgba(233,30,140,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a {
+      text-decoration: none;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--rose-dark);
+      background: var(--rose-pale);
+      border: 2px solid transparent;
+      transition: all .25s;
+      letter-spacing: .3px;
+    }
+
+    nav a:hover {
+      background: var(--rose);
+      color: var(--white);
+      border-color: var(--rose-dark);
+      transform: translateY(-2px);
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 24px;
+      animation: fadeUp .6s ease both;
+    }
+
+    @keyframes fadeUp {
+      from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)}
+    }
+
+    .section-label {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--rose-dark);
+      border-left: 5px solid var(--rose);
+      padding-left: 16px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 30px 36px;
+      box-shadow: var(--shadow);
+      border: 1.5px solid var(--rose-light);
+      line-height: 1.8;
+      font-size: 1rem;
+      color: #3a1030;
+    }
+
+    /* ── INTRO ── */
+    .intro-card {
+      background: linear-gradient(120deg, #fff0f9, #fce4f3);
+      border-left: 5px solid var(--rose);
+    }
+
+    /* ── BENEFITS GRID ── */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+      margin-top: 10px;
+    }
+
+    .benefit-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 24px 26px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--rose);
+      transition: transform .3s, box-shadow .3s;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(233,30,140,0.18);
+    }
+
+    .benefit-card .icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+    .benefit-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.08rem;
+      color: var(--rose-dark);
+      margin-bottom: 8px;
+    }
+    .benefit-card p { font-size: 0.93rem; color: #5a2040; line-height: 1.7; }
+
+    /* ── TIPOS DE COMUNICACIÓN ── */
+    .tipos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .tipo-card {
+      background: linear-gradient(145deg, var(--rose-pale), #ffd6ee);
+      border-radius: 16px;
+      padding: 24px 22px;
+      text-align: center;
+      border: 2px solid var(--rose-light);
+      transition: transform .3s;
+    }
+
+    .tipo-card:hover { transform: scale(1.04); }
+    .tipo-card .icon { font-size: 2.4rem; margin-bottom: 10px; display: block; }
+    .tipo-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--rose-dark);
+      margin-bottom: 6px;
+    }
+    .tipo-card p { font-size: 0.88rem; color: #6b2456; line-height: 1.6; }
+
+  /* ── EVIDENCIAS EN FILAS VERTICALES ── */
+    .evidencia-grid {
+      display: flex;
+      flex-direction: column; /* Alinea una debajo de otra */
+      gap: 30px;               /* Espacio generoso entre filas */
+      margin-top: 25px;
+    }
+
+    .evidencia-item {
+      width: 100%;             /* Ocupa todo el ancho disponible */
+      background: var(--white);
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px solid var(--rose-light);
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;  /* Título arriba, imagen abajo */
+    }
+
+    .evidencia-item:hover {
+      transform: scale(1.01); /* Un efecto de zoom muy sutil */
+      border-color: var(--rose);
+    }
+
+    /* Estilo para el título de cada evidencia */
+    .evidencia-titulo {
+      background: var(--rose-pale);
+      color: var(--rose-dark);
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-bottom: 2px solid var(--rose-light);
+      font-family: 'Playfair Display', serif;
+    }
+
+    .evidencia-item img {
+      width: 100%;
+      height: auto;           /* Mantiene la proporción original */
+      display: block;
+      object-fit: contain;
+    }
+    /* ── REFLEXIÓN ── */
+    .reflection-box {
+      background: linear-gradient(135deg, var(--rose-dark), var(--rose));
+      border-radius: 22px;
+      padding: 36px 38px;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reflection-box::after {
+      content: '💬';
+      position: absolute;
+      right: 30px;
+      bottom: 20px;
+      font-size: 80px;
+      opacity: 0.12;
+    }
+
+    .reflection-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 14px;
+    }
+
+    .reflection-box p { font-size: 1rem; line-height: 1.85; opacity: 0.95; }
+
+    /* ── SECCIÓN PERSPECTIVA EXTERNA (GAMA ROSA) ── */
+    .external-reflection {
+      background: var(--pink-soft); /* Un rosa muy pálido */
+      border-radius: 22px;
+      padding: 35px;
+      border-left: 8px solid var(--rose-light); /* Borde rosa suave */
+      margin-top: 40px;
+      box-shadow: 0 4px 15px rgba(233,30,140,0.05);
+    }
+
+    .external-reflection h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--rose-dark);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .external-reflection p {
+      font-style: italic;
+      color: var(--text-mid);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    .quote-icon {
+      font-size: 1.5rem;
+      color: var(--rose-light);
+    }
+
+    /* ── INTEGRANTES ── */
+    .students-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 30px;
+      margin-top: 10px;
+    }
+
+    .student-card {
+      background: var(--white);
+      border-radius: 22px;
+      padding: 32px 30px;
+      box-shadow: var(--shadow);
+      border: 2px solid var(--rose-light);
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s;
+    }
+
+    .student-card:hover { transform: translateY(-6px); }
+
+    .student-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--rose-dark), var(--rose), var(--rose-light));
+    }
+
+    .avatar-svg {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 4px solid var(--rose);
+      margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(233,30,140,0.25);
+      background: linear-gradient(135deg, #fce4f3, #f48fb1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+    }
+
+    .student-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.18rem;
+      color: var(--rose-dark);
+      margin-bottom: 4px;
+    }
+
+    .student-card .role {
+      font-size: 0.82rem;
+      color: var(--rose);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    .student-card p {
+      font-size: 0.93rem;
+      color: #5a2040;
+      line-height: 1.75;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: linear-gradient(135deg, #9c1260, #e91e8c);
+      color: var(--white);
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 80px;
+    }
+
+    footer p { font-size: 0.9rem; opacity: 0.88; line-height: 1.8; }
+    footer strong { font-family: 'Playfair Display', serif; font-size: 1.1rem; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      text-align: center;
+      margin: 0 auto 10px;
+      color: var(--rose-light);
+      font-size: 1.3rem;
+      letter-spacing: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="hero-icon">💬</span>
+  <h1>Rol de la Comunicación Asertiva<br>en el Desempeño del Tecnólogo en<br>Análisis y Desarrollo de Software</h1>
+  <p class="subtitle">Formación en Comunicaciones · SENA</p>
+</header>
+
+<nav>
+  <a href="#introduccion">Introducción</a>
+  <a href="#beneficios">Beneficios</a>
+  <a href="#tipos">Tipos de Comunicación</a>
+  <a href="#evidencias">Evidencias</a>
+  <a href="#reflexion">Reflexión</a>
+  <a href="#integrantes">Integrantes</a>
+</nav>
+
+<section id="introduccion">
+  <h2 class="section-label">¿Qué es la comunicación y su importancia?</h2>
+  <div class="divider">✦ ✦ ✦</div>
+  <div class="card intro-card">
+    <p>La <strong>comunicación</strong> es el proceso mediante el cual las personas transmiten información, ideas, emociones y pensamientos entre sí...</p>
+    <br>
+    <p>Su importancia radica en que es la base de todas las relaciones humanas. Sin comunicación efectiva, no podríamos construir equipos de trabajo...</p>
+    <br>
+    <p>La comunicación <strong>asertiva</strong>, en particular, nos permite expresar nuestras ideas, necesidades y emociones con seguridad y respeto...</p>
+  </div>
+</section>
+
+<section id="beneficios">
+  <h2 class="section-label">Beneficios en el Desarrollo de Software</h2>
+  <div class="divider">✦ ✦ ✦</div>
+  <div class="benefits-grid">
+    <div class="benefit-card"><span class="icon">📋</span><h3>Claridad en requisitos</h3><p>Evita errores y retrabajos en el futuro.</p></div>
+    <div class="benefit-card"><span class="icon">🤝</span><h3>Colaboración</h3><p>Ambiente cómodo aportando soluciones.</p></div>
+    <div class="benefit-card"><span class="icon">⚖️</span><h3>Resolución</h3><p>Gestión de conflictos satisfactorios.</p></div>
+    <div class="benefit-card"><span class="icon">🔄</span><h3>Feedback</h3><p>Crucial para el aprendizaje continuo.</p></div>
+    <div class="benefit-card"><span class="icon">👥</span><h3>Clientes</h3><p>Gestionar expectativas y necesidades.</p></div>
+    <div class="benefit-card"><span class="icon">🗓️</span><h3>Negociación</h3><p>Plazos de entrega y recursos.</p></div>
+  </div>
+</section>
+
+<section id="tipos">
+  <h2 class="section-label">Tipos de Comunicación</h2>
+  <div class="divider">✦ ✦ ✦</div>
+  <div class="tipos-grid">
+    <div class="tipo-card"><span class="icon">🗣️</span><h3>Verbal</h3><p>Palabras habladas o escritas.</p></div>
+    <div class="tipo-card"><span class="icon">🤲</span><h3>No Verbal</h3><p>Gestos y postura corporal.</p></div>
+    <div class="tipo-card"><span class="icon">👂</span><h3>Asertiva</h3><p>Directa, honesta y respetuosa.</p></div>
+    <div class="tipo-card"><span class="icon">📡</span><h3>Digital</h3><p>Herramientas tecnológicas.</p></div>
+    <div class="tipo-card"><span class="icon">🏢</span><h3>Formal</h3><p>Protocolos organizacionales.</p></div>
+    <div class="tipo-card"><span class="icon">💬</span><h3>Informal</h3><p>Espontánea entre compañeros.</p></div>
+  </div>
+</section>
+
+<section id="evidencias">
+  <h2 class="section-label">Evidencia de Trabajos Angie Melissa Heredia Londoño</h2>
+  <div class="divider">✦ ✦ ✦</div>
+  <div class="card">
+    <p style="text-align: center; margin-bottom: 20px; font-style: italic; color: var(--rose-dark);">A continuación se presentan las evidencias de las actividades realizadas durante la formación:</p>
+    <div class="evidencia-grid">
+  
+  <div class="evidencia-item">
+    <div class="evidencia-titulo">Taller La Sapa Caramelo</div>
+    <img src="img/img1.png" alt="Taller Caramelo">
+  </div>
+
+  <div class="evidencia-item">
+    <div class="evidencia-titulo">Taller Tipos de Comunicación</div>
+    <img src="img/img2.png" alt="Tipos de Comunicación">
+  </div>
+
+  <div class="evidencia-item">
+    <div class="evidencia-titulo">Presentación Funciones del Lenguaje</div>
+    <img src="img/img3.png" alt="Funciones del Lenguaje">
+  </div>
+
+  <div class="evidencia-item">
+    <div class="evidencia-titulo">Investigación Comunicación No Verbal</div>
+    <img src="img/img4.png" alt="Comunicación No Verbal">
+  </div>
+
+</div>
+    </div>
+  </div>
+</section>
+
+<section id="reflexion">
+  <h2 class="section-label">Reflexión del Reto</h2>
+  <div class="divider">✦ ✦ ✦</div>
+  <div class="reflection-box">
+    <h3>🌸 Nuestra reflexión como equipo</h3>
+    <p>Como equipo entendimos que la comunicación no es solo hablar, sino saber expresar lo que pensamos y también saber escuchar. A lo largo del trabajo nos dimos cuenta de que muchas veces los problemas no son por las personas, sino por cómo nos comunicamos.
+
+Aprendimos que existen varios tipos de comunicación, como la verbal, no verbal y digital, y que todos influyen en cómo se entiende un mensaje. También vimos que cada forma de comunicarnos tiene una intención, ya sea informar, expresar sentimientos o simplemente mantener la conversación.
+
+Lo más importante para nosotras fue entender la comunicación asertiva. Nos ayudó a ver que decir las cosas con respeto y claridad evita muchos malentendidos. Además, escuchar de verdad al otro hace que el trabajo en equipo sea más fácil y cómodo.
+
+Al final, nos quedó como aprendizaje que comunicarnos bien hace todo más sencillo, mejora las relaciones y nos ayuda tanto en el estudio como en la vida diaria.</p>
+  </div>
+</section>
+
+<section id="perspectiva-externa">
+      <section id="perspectiva-externa">
+  <h2 class="section-label">Persona con la que no tenemos buena comunicación</h2>
+  <div class="divider">✦ ✦ ✦</div>
+  
+  <div class="external-reflection">
+    <h3><span class="quote-icon"></span> Angie Melissa Heredia Londoño</h3>
+    <p>
+      Tuve un conflicto con una compañera de la escuela con la que antes me llevaba muy bien. Con el tiempo, ella empezó a juntarse con otro grupo de amigos y poco a poco se fue alejando de mí, ya que quería encajar con ellos. Esto me hizo sentir triste y confundida, pero en lugar de preguntarle lo que pasaba, simplemente me alejé también.
+
+      La razón por la que dejamos de llevarnos bien fue la falta de comunicación. Yo asumí que ya no le importaba nuestra amistad, y ella nunca explicó sus razones, lo que generó distancia entre las dos.
+
+     Si hubiéramos tenido una comunicación más asertiva, podríamos haber hablado con sinceridad. Yo habría podido expresarle cómo me sentía, y ella podría haber explicado su situación sin necesidad de alejarse completamente.
+
+     Una posible solución habría sido mantener el diálogo, respetar los cambios en su vida social y encontrar un equilibrio para conservar la amistad sin presiones.
+
+
+     <h3><span class="quote-icon"></span> Angely Arboleda Gallego</h3>
+        en mi caso, la persona con la que no he tenido una buena comunicación es con mi padre. Él y yo no nos entendemos como padre e hija, siento que no tengo la suficiente madurez o confianza para contarle mis cosas, Con mi papá no nos sabemos hablar. No sé si alguna vez lo hemos hecho de verdad. Hay momentos en que quisiera contarle cosas y no sé por dónde empezar, o siento que aunque hable, algo se pierde en el camino. Y duele, porque no es que no lo quiera. Lo quiero muchísimo. Eso es lo raro de todo esto. Que puedo querer tanto a alguien y al mismo tiempo sentir que hay una distancia enorme que ninguno de los dos sabe cómo cruzar. Me pone triste pensar en todo lo que no nos hemos dicho. Las conversaciones que nunca pasaron, las veces que me callé porque no sabía cómo hablar con él. Pero también pienso que todavía hay tiempo. Que quizás puedo intentarlo, aunque no sepa bien cómo. Aunque me dé miedo o no me salgan las palabras perfectas. no hemos tenido ningún tipo de comunicación y no puedo decir que eso algún día cambie, entonces mejor lo dejo así.
+    </p>
+  </div>
+</section>
+    </p>
+  </div>
+</section>
+
+<section id="integrantes">
+  <h2 class="section-label">Integrantes del Grupo</h2>
+  <div class="divider">✦ ✦ ✦</div>
+  <div class="students-grid">
+    <div class="student-card">
+      <div class="avatar-svg">👩🏻‍💻</div>
+      <h3>Angely Arboleda Gallego</h3>
+      <div class="role">Aprendiz SENA</div>
+      <p>Apasionada por la tecnología. Reflexión: Expresar ideas con confianza.</p>
+    </div>
+    <div class="student-card">
+      <div class="avatar-svg">👩🏽‍💻</div>
+      <h3>Angie Melissa Heredia</h3>
+      <div class="role">Aprendiz SENA</div>
+      <p>Comprometida y empática. Reflexión: Comunicación va más allá de palabras.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>🌸 Comunicación Asertiva en el Desarrollo de Software 🌸</strong></p>
+  <p>Angely Arboleda Gallego &amp; Angie Melissa Heredia Londoño</p>
+  </p>
+  <p>SENA - 2026</p>
+</footer>
+
+</body>
+</html>
